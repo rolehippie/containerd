@@ -1,0 +1,65 @@
+# Standards: 1.2
+---
+- name: Create required dirs
+  loop:
+    - /etc/containerd
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: root
+    group: root
+    mode: u=rwx,g=rx,o=rx
+  tags:
+    - containerd
+
+- name: Download repo key
+  when: containerd_upstream_version
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    id: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
+    state: present
+  tags:
+    - containerd
+
+- name: Add apt repository
+  when: containerd_upstream_version
+  apt_repository:
+    repo: "deb [arch={{ containerd_upstream_arch }}] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+    filename: containerd
+    update_cache: True
+    state: present
+  tags:
+    - containerd
+
+- name: Install required packages
+  loop:
+    - "{{ 'containerd.io' if containerd_upstream_version else 'containerd' }}"
+  package:
+    name: "{{ item }}"
+    state: present
+  tags:
+    - containerd
+
+- name: Write general config
+  notify:
+    - Restart containerd
+  template:
+    src: config.j2
+    dest: /etc/containerd/config.toml
+    owner: root
+    group: root
+    mode: u=rw,g=r,o=r
+  tags:
+    - containerd
+
+- name: Start containerd service
+  systemd:
+    name: containerd
+    state: started
+    daemon_reload: True
+    masked: False
+    enabled: True
+  tags:
+    - containerd
+
+...
