@@ -13,6 +13,9 @@ Building and improving this Ansible role have been sponsored by my employer **Pr
 ## Table of content
 
 - [Default Variables](#default-variables)
+  - [containerd_fixed_version](#containerd_fixed_version)
+  - [containerd_skip_config](#containerd_skip_config)
+  - [containerd_skip_service](#containerd_skip_service)
   - [containerd_upstream_arch](#containerd_upstream_arch)
   - [containerd_upstream_version](#containerd_upstream_version)
 - [Discovered Tags](#discovered-tags)
@@ -23,6 +26,36 @@ Building and improving this Ansible role have been sponsored by my employer **Pr
 ---
 
 ## Default Variables
+
+### containerd_fixed_version
+
+Install and pin a specific version
+
+#### Default value
+
+```YAML
+containerd_fixed_version:
+```
+
+### containerd_skip_config
+
+Skip config if handled by something else
+
+#### Default value
+
+```YAML
+containerd_skip_config: false
+```
+
+### containerd_skip_service
+
+Skip service if handled by something else
+
+#### Default value
+
+```YAML
+containerd_skip_service: false
+```
 
 ### containerd_upstream_arch
 
