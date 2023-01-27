@@ -12,19 +12,47 @@
   tags:
     - containerd
 
-- name: Download repo key
+- name: Remove legacy key
   when: containerd_upstream_version | default(True)
   apt_key:
-    url: https://download.docker.com/linux/ubuntu/gpg
     id: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
-    state: present
+    state: absent
+  tags:
+    - containerd
+
+- name: Remove legacy repo
+  when: containerd_upstream_version | default(True)
+  apt_repository:
+    repo: "deb [arch={{ containerd_upstream_arch }}] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+    filename: containerd
+    update_cache: False
+    state: absent
+  tags:
+    - containerd
+
+- name: Create keyrings dir
+  when: containerd_upstream_version | default(True)
+  file:
+    path: /etc/apt/keyrings
+    owner: root
+    group: root
+    mode:
+    state: directory
+  tags:
+    - containerd
+
+- name: Download repo key
+  when: containerd_upstream_version | default(True)
+  get_url:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    dest: /etc/apt/keyrings/docker.gpg
   tags:
     - containerd
 
 - name: Add apt repository
   when: containerd_upstream_version | default(True)
   apt_repository:
-    repo: "deb [arch={{ containerd_upstream_arch }}] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+    repo: "deb [arch={{ containerd_upstream_arch }} signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
     filename: containerd
     update_cache: True
     state: present
