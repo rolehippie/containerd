@@ -18,6 +18,7 @@ Building and improving this Ansible role have been sponsored by my current and p
 - [Requirements](#requirements)
 - [Default Variables](#default-variables)
   - [containerd_fixed_version](#containerd_fixed_version)
+  - [containerd_keyring](#containerd_keyring)
   - [containerd_skip_config](#containerd_skip_config)
   - [containerd_skip_service](#containerd_skip_service)
   - [containerd_upstream_arch](#containerd_upstream_arch)
@@ -44,6 +45,16 @@ Install and pin a specific version
 
 ```YAML
 containerd_fixed_version:
+```
+
+### containerd_keyring
+
+Path for the repository keyring
+
+#### Default value
+
+```YAML
+containerd_keyring: /usr/share/keyrings/containerd-archive-keyring.gpg
 ```
 
 ### containerd_skip_config
