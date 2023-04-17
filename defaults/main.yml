@@ -15,4 +15,7 @@ containerd_skip_config: False
 # @var containerd_skip_service:description: Skip service if handled by something else
 containerd_skip_service: False
 
+# @var containerd_keyring:description: Path for the repository keyring
+containerd_keyring: /usr/share/keyrings/containerd-archive-keyring.gpg
+
 ...
