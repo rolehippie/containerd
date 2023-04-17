@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/rolehippie/containerd/compare/v1.1.0...v1.2.0) (2023-04-17)
+
+
+### Features
+
+* drop legacy steps, use unified path for repo key ([297fdd9](https://github.com/rolehippie/containerd/commit/297fdd939548ff488c295888cee85e931ff2643c))
+
 ## [1.1.0](https://github.com/rolehippie/containerd/compare/v1.0.0...v1.1.0) (2023-01-30)
 
 
