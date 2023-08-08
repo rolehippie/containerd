@@ -8,10 +8,10 @@ dependency:
     ANSIBLE_GALAXY_DISPLAY_PROGRESS: "false"
 
 driver:
-  name: docker
+  name: containers
 
 platforms:
-  - name: containerd-ubuntu-22
+  - name: containersd-ubuntu-22
     image: geerlingguy/docker-ubuntu2204-ansible:latest
     hostname: ubuntu
     privileged: True
@@ -26,7 +26,7 @@ platforms:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
     environment:
       container: docker
-  - name: containerd-ubuntu-20
+  - name: containersd-ubuntu-20
     image: geerlingguy/docker-ubuntu2004-ansible:latest
     hostname: ubuntu
     privileged: True
@@ -41,7 +41,7 @@ platforms:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
     environment:
       container: docker
-  - name: containerd-ubuntu-18
+  - name: containersd-ubuntu-18
     image: geerlingguy/docker-ubuntu1804-ansible:latest
     hostname: ubuntu
     privileged: True
