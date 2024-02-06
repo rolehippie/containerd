@@ -1,9 +1,8 @@
-# Standards: 1.2
 ---
 - name: Create required dirs
   loop:
     - /etc/containerd
-  file:
+  ansible.builtin.file:
     path: "{{ item }}"
     state: directory
     owner: root
@@ -14,7 +13,7 @@
 
 - name: Download repo key
   when: containerd_upstream_version | default(True)
-  shell:
+  ansible.builtin.shell:
     cmd: "curl -sSL 'https://download.docker.com/linux/ubuntu/gpg' | gpg --dearmor --output {{ containerd_keyring }}"
     creates: "{{ containerd_keyring }}"
   tags:
@@ -22,7 +21,7 @@
 
 - name: Add apt repository
   when: containerd_upstream_version | default(True)
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: "deb [arch={{ containerd_upstream_arch }} signed-by={{ containerd_keyring }}] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
     filename: containerd
     update_cache: True
@@ -32,7 +31,7 @@
 
 - name: Pin package version
   when: containerd_fixed_version | default(False)
-  copy:
+  ansible.builtin.copy:
     content: |
       Explantion: Pin added by containerd role
       Package: {{ 'containerd.io' if containerd_upstream_version else 'containerd' }}
@@ -46,7 +45,7 @@
     - containerd
 
 - name: Fact containerd package
-  set_fact:
+  ansible.builtin.set_fact:
     containerd_package_name: "{{ 'containerd.io' if containerd_upstream_version | default(True) else 'containerd' }}"
   tags:
     - containerd
@@ -54,7 +53,7 @@
 - name: Install required packages
   loop:
     - "{{ containerd_package_name }}{{ '=' + containerd_fixed_version if containerd_fixed_version | default(False) else '' }}"
-  package:
+  ansible.builtin.package:
     name: "{{ item }}"
     state: present
   tags:
@@ -64,7 +63,7 @@
   when: not containerd_skip_config
   notify:
     - Restart containerd
-  template:
+  ansible.builtin.template:
     src: config.j2
     dest: /etc/containerd/config.toml
     owner: root
@@ -75,7 +74,7 @@
 
 - name: Start containerd service
   when: not containerd_skip_service
-  systemd:
+  ansible.builtin.systemd:
     name: containerd
     state: started
     daemon_reload: True
