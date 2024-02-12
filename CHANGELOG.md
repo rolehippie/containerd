@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.0.0](https://github.com/rolehippie/containerd/compare/v1.2.0...v2.0.0) (2024-02-12)
+
+
+### Features
+
+* drop support for ubuntu 18.04 ([bede928](https://github.com/rolehippie/containerd/commit/bede9286eb8a1a24a4ac0a16b7595c63bb77cb53))
+* used full qualified collection names ([e8a21b7](https://github.com/rolehippie/containerd/commit/e8a21b746bb9856f65e199507133e58a1434208d))
+
 ## [1.2.0](https://github.com/rolehippie/containerd/compare/v1.1.0...v1.2.0) (2023-04-17)
 
 
