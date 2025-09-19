@@ -1,18 +1,18 @@
 ---
 # @var containerd_upstream_version:description: Install from upstream repository
-containerd_upstream_version: True
+containerd_upstream_version: true
 
 # @var containerd_upstream_arch:description: System arch used by upstream repository
-containerd_upstream_arch: amd64
+containerd_upstream_arch: "{{ 'arm64' if ansible_architecture == 'aarch64' or ansible_architecture == 'arm64' else 'amd64' }}"
 
 # @var containerd_fixed_version:description: Install and pin a specific version
 containerd_fixed_version:
 
 # @var containerd_skip_config:description: Skip config if handled by something else
-containerd_skip_config: False
+containerd_skip_config: false
 
 # @var containerd_skip_service:description: Skip service if handled by something else
-containerd_skip_service: False
+containerd_skip_service: false
 
 # @var containerd_keyring:description: Path for the repository keyring
 containerd_keyring: /usr/share/keyrings/containerd-archive-keyring.gpg

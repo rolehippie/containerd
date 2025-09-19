@@ -1,4 +1,4 @@
-# workspace
+# containerd
 
 [![Source Code](https://img.shields.io/badge/github-source%20code-blue?logo=github&logoColor=white)](https://github.com/rolehippie/containerd)
 [![General Workflow](https://github.com/rolehippie/containerd/actions/workflows/general.yml/badge.svg)](https://github.com/rolehippie/containerd/actions/workflows/general.yml)
@@ -83,7 +83,8 @@ System arch used by upstream repository
 #### Default value
 
 ```YAML
-containerd_upstream_arch: amd64
+containerd_upstream_arch: "{{ 'arm64' if ansible_architecture == 'aarch64' or ansible_architecture
+  == 'arm64' else 'amd64' }}"
 ```
 
 ### containerd_upstream_version

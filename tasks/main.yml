@@ -12,25 +12,51 @@
     - containerd
 
 - name: Download repo key
-  when: containerd_upstream_version | default(True)
-  ansible.builtin.shell:
-    cmd: "curl -sSL 'https://download.docker.com/linux/ubuntu/gpg' | gpg --dearmor --output {{ containerd_keyring }}"
-    creates: "{{ containerd_keyring }}"
+  when:
+    - containerd_upstream_version
+  register: containerd_key_download
+  ansible.builtin.get_url:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    dest: "{{ containerd_keyring }}.asc"
+    mode: u=rw,g=r,o=r
+    force: true
+  tags:
+    - containerd
+
+- name: Check repo key
+  when:
+    - containerd_upstream_version
+  register: containerd_key_status
+  ansible.builtin.stat:
+    path: "{{ containerd_keyring }}"
+  tags:
+    - containerd
+
+- name: Dearmor repo key
+  when:
+    - containerd_upstream_version
+    - containerd_key_download.changed or not containerd_key_status.stat.exists
+  register: containerd_key_convert
+  changed_when: containerd_key_convert.rc == 0
+  ansible.builtin.command:
+    cmd: "gpg --dearmor -o {{ containerd_keyring }} {{ containerd_keyring }}.asc"
   tags:
     - containerd
 
 - name: Add apt repository
-  when: containerd_upstream_version | default(True)
+  when:
+    - containerd_upstream_version
   ansible.builtin.apt_repository:
     repo: "deb [arch={{ containerd_upstream_arch }} signed-by={{ containerd_keyring }}] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
     filename: containerd
-    update_cache: True
+    update_cache: true
     state: present
   tags:
     - containerd
 
 - name: Pin package version
-  when: containerd_fixed_version | default(False)
+  when:
+    - false if containerd_fixed_version is none else (containerd_fixed_version | length > 0)
   ansible.builtin.copy:
     content: |
       Explantion: Pin added by containerd role
@@ -46,13 +72,13 @@
 
 - name: Fact containerd package
   ansible.builtin.set_fact:
-    containerd_package_name: "{{ 'containerd.io' if containerd_upstream_version | default(True) else 'containerd' }}"
+    containerd_package_name: "{{ 'containerd.io' if containerd_upstream_version else 'containerd' }}"
   tags:
     - containerd
 
 - name: Install required packages
   loop:
-    - "{{ containerd_package_name }}{{ '=' + containerd_fixed_version if containerd_fixed_version | default(False) else '' }}"
+    - "{{ containerd_package_name }}{{ '=' + containerd_fixed_version if containerd_fixed_version | default(false) else '' }}"
   ansible.builtin.package:
     name: "{{ item }}"
     state: present
@@ -60,7 +86,8 @@
     - containerd
 
 - name: Write general config
-  when: not containerd_skip_config
+  when:
+    - not containerd_skip_config
   notify:
     - Restart containerd
   ansible.builtin.template:
@@ -73,13 +100,14 @@
     - containerd
 
 - name: Start containerd service
-  when: not containerd_skip_service
+  when:
+    - not containerd_skip_service
   ansible.builtin.systemd:
     name: containerd
     state: started
-    daemon_reload: True
-    masked: False
-    enabled: True
+    daemon_reload: true
+    masked: false
+    enabled: true
   tags:
     - containerd
 
