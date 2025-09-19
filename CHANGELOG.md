@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.0](https://github.com/rolehippie/containerd/compare/v2.0.0...v2.1.0) (2025-09-19)
+
+
+### Features
+
+* apply new repo structure and update linting ([fbc44fb](https://github.com/rolehippie/containerd/commit/fbc44fb46e4bba61fd3fb732a35c42e4e57ffbed))
+
 ## [2.0.0](https://github.com/rolehippie/containerd/compare/v1.2.0...v2.0.0) (2024-02-12)
 
 
