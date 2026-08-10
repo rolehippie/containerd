@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.0](https://github.com/rolehippie/containerd/compare/v2.2.0...v2.3.0) (2026-08-10)
+
+### Dependencies
+
+* **minor:** update dependency pipx:ansible-doctor to v8.4.0 ([#55](https://github.com/rolehippie/containerd/issues/55)) ([cdb935d](https://github.com/rolehippie/containerd/commit/cdb935dcf146f6a8a480365c39ba241bbe9a9819))
+* **patch:** update dependency python to v3.14.7 ([#53](https://github.com/rolehippie/containerd/issues/53)) ([7fc41fb](https://github.com/rolehippie/containerd/commit/7fc41fb58a22f44b97bb697094b86ddaed52d632))
+
 ## [2.2.0](https://github.com/rolehippie/containerd/compare/v2.1.0...v2.2.0) (2026-07-27)
 
 ## [2.1.0](https://github.com/rolehippie/containerd/compare/v2.0.0...v2.1.0) (2025-09-19)
