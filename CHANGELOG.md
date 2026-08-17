@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.4.0](https://github.com/rolehippie/containerd/compare/v2.3.0...v2.4.0) (2026-08-17)
+
+### Dependencies
+
+* **minor:** update dependency pipx:ansible-lint to v26.8.0 ([#58](https://github.com/rolehippie/containerd/issues/58)) ([fa333a6](https://github.com/rolehippie/containerd/commit/fa333a696fde1f2d75de99d3ca478af1bd7f2dcd))
+* **minor:** update dependency pipx:molecule to v26.8.0 ([#59](https://github.com/rolehippie/containerd/issues/59)) ([09a5f9b](https://github.com/rolehippie/containerd/commit/09a5f9b0291a123bae56b33bbf1fa946d8933059))
+* **patch:** update dependency pipx:ansible-core to v2.21.3 ([#56](https://github.com/rolehippie/containerd/issues/56)) ([2c92334](https://github.com/rolehippie/containerd/commit/2c92334cdaef7b4320914508ad5409d7acc8c5f6))
+* **patch:** update dependency pre-commit to v4.6.2 ([#57](https://github.com/rolehippie/containerd/issues/57)) ([e9127ff](https://github.com/rolehippie/containerd/commit/e9127ff7dc4650c5fad8b87c19f8bff5b50920c7))
+
 ## [2.3.0](https://github.com/rolehippie/containerd/compare/v2.2.0...v2.3.0) (2026-08-10)
 
 ### Dependencies
