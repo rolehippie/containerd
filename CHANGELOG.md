@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.5.0](https://github.com/rolehippie/containerd/compare/v2.4.1...v2.5.0) (2026-09-07)
+
+### Features
+
+* add separate requirements for molecule run ([617b833](https://github.com/rolehippie/containerd/commit/617b833ae06a4005834db7364080dc320b8750fb))
+* use new required facts as attributes ([abc2cda](https://github.com/rolehippie/containerd/commit/abc2cda4c45dab9e59161114fc523c95b8573536))
+
 ## [2.4.1](https://github.com/rolehippie/containerd/compare/v2.4.0...v2.4.1) (2026-08-31)
 
 ### Dependencies
