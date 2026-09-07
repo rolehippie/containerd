@@ -39,7 +39,7 @@
   register: containerd_key_convert
   changed_when: containerd_key_convert.rc == 0
   ansible.builtin.command:
-    cmd: "gpg --dearmor -o {{ containerd_keyring }} {{ containerd_keyring }}.asc"
+    cmd: "gpg --batch --yes --dearmor -o {{ containerd_keyring }} {{ containerd_keyring }}.asc"
   tags:
     - containerd
 
@@ -47,7 +47,7 @@
   when:
     - containerd_upstream_version
   ansible.builtin.apt_repository:
-    repo: "deb [arch={{ containerd_upstream_arch }} signed-by={{ containerd_keyring }}] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+    repo: "deb [arch={{ containerd_upstream_arch }} signed-by={{ containerd_keyring }}] https://download.docker.com/linux/ubuntu {{ ansible_facts['distribution_release'] }} stable"
     filename: containerd
     update_cache: true
     state: present
